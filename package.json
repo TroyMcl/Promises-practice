@@ -1,0 +1,23 @@
+{
+  "name": "promises-practice",
+  "version": "1.0.0",
+  "description": "Practice promise chaining and integrating promises into your code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TroyMcl/promises-practice.git"
+  },
+  "author": "Troy McLaughlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TroyMcl/promises-practice/issues"
+  },
+  "homepage": "https://github.com/TroyMcl/promises-practice#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bluebird": "^3.7.2"
+  }
+}
