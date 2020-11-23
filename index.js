@@ -21,36 +21,22 @@ Fill out this function to read our file in 2 steps
           Why are the logs in that order?
 2) remove the return statement, what do you get? Why? How can this help you debug promises?
 */
-const readFilePromise = (filePath) => {
-  // step 1)
-  return fs.readFileAsync(filePath, 'utf-8')
-
-  // step 2)
-  return fs.readFileAsync(filePath, 'utf-8')
-        .then(data => {
-          console.log('print out of data in promise: ', data);
-          return data;
-        })
-        .catch(err => {
-          return err;
-        });
+const readFilePromise = async (filePath) => {
+  let num = await fs.readFileAsync(filePath, 'utf-8');
+  console.log('number in promise: ', num);
+  return num;
 };
 // let fileContents = readFilePromise(numberFile);
-// console.log('print out of what calling funcition returns', fileContents)
+// console.log('function call: ', fileContents)
 
 /*
 Fill out this function to make an API call to get a trivia fact about a random number
   You will need to ultimatley send the API response.data property as the final value for when your pormise chain resolves. How do you do that? How do you know the final value sent from your promise chain?
  */
-const makeNumApiCall = (num) => {
-  return apiCall(num)
-        .then(response => {
-          console.log('print out of data in promise: ',response.data);
-          return response.data;
-        })
-        .catch(err => {
-          return err;
-        });
+const makeNumApiCall = async (num) => {
+  let response = await apiCall(num);
+  console.log('fact in promise: ', response.data);
+  return response.data;
 };
 // let numFact = makeNumApiCall(10)
 // console.log('function call', numFact)
@@ -61,20 +47,14 @@ Write a function that will write a number to your numberFile.txt
   Also take note of what your fs promise is returning?
   When debugging a promises, why is important to check the documentation of library promises that your are going to use?
 */
-const writeNumPromise = (filePath, num) => {
+const writeNumPromise = async (filePath, num) => {
   num = num.toString()
-  return fs.writeFileAsync(filePath, num, 'utf-8')
-        .then(data => {
-          console.log('print out of data in promise: ', data);
-          return data;
-        })
-        .catch(err => {
-          return err;
-        });
+  await fs.writeFileAsync(filePath, num, 'utf-8');
+  return;
 };
 // let fileContents = writeNumPromise(numberFile, 15);
 // console.log('function call ',fileContents)
-// hint if written correclty the only change you will see will be in your numberFile.txt
+
 
 /* Promise Chaining */
 
@@ -82,18 +62,11 @@ const writeNumPromise = (filePath, num) => {
  Write a function that reads a number from a file and then makes an api call to get a trivia fact about that number
  -do this the long hand way- don't use your previously written helper functions, but use the apiCall function
  */
-const readNumandGetFact = (filePath) => {
-  return fs.readFileAsync(filePath, 'utf-8')
-    .then(number => {
-      return apiCall(number);
-    })
-    .then(response => {
-      console.log('Inside the promise: ', response.data);
-      return response.data;
-    })
-    .catch(err => {
-      return err;
-    });
+const readNumandGetFact = async (filePath) => {
+  let num = await fs.readFileAsync(filePath, 'utf-8')
+  let res = await apiCall(num);
+  console.log('Inside the Promise: ', res.data);
+  return res.data;
 };
 // let numTrivia = readNumandGetFact(numberFile)
 // console.log('function call: ', numTrivia)
@@ -101,18 +74,11 @@ const readNumandGetFact = (filePath) => {
 /*
 Now focus on how to use functions that return promises in your promise chains. Accomplish the same functionality only using your using your helper functions
 */
-const readNumandGetFactHelpers = (filePath) => {
-  return readFilePromise(filePath)
-        .then(num => {
-          return apiCall(num);
-        })
-        .then(response => {
-          console.log('Inside the promise: ', response.data);
-          return response.data;
-        })
-        .catch(err => {
-          return err;
-        });
+const readNumandGetFactHelpers = async (filePath) => {
+  let num = await readFilePromise(filePath);
+  let res = await apiCall(num);
+  console.log('Inside the promise: ', res.data);
+  return res.data;
 };
 // let numTrivia = readNumandGetFactHelpers(numberFile)
 // console.log('function call: ', numTrivia)
@@ -125,17 +91,11 @@ const readNumandGetFactHelpers = (filePath) => {
  Do this with out using your helper functions
   -bonus: generate a new random number between 1-250 and write it to the numberFile
  */
-const multiplePromises = (numberFilePath, numberFactPath) => {
-  return fs.readFileAsync(numberFilePath, 'utf-8')
-        .then(num => {
-          return apiCall(num);
-        })
-        .then(response => {
-          return fs.writeFileAsync(numberFactPath, response.data, 'utf-8');
-        })
-        .catch(err => {
-          return err;
-        });
+const multiplePromises = async (numberFilePath, numberFactPath) => {
+  let num = await fs.readFileAsync(numberFilePath, 'utf-8');
+  let res = await apiCall(num);
+  await fs.writeFileAsync(numberFactPath, res.data, 'utf-8');
+  return;
 };
 // let write = multiplePromises(numberFile, numberFact);
 // console.log(write)
@@ -149,20 +109,14 @@ const multiplePromises = (numberFilePath, numberFactPath) => {
   -bonus: generate a new random number between 1-250 an write it to the numberFile
   -bonus: write to your numberFact file without overwriting previous facts
  */
-const multiplePromisesHelpers = (numberFilePath, numberFactPath) => {
-  return readFilePromise(numberFilePath, 'utf-8')
-        .then(num => {
-          return apiCall(num);
-        })
-        .then(response => {
-          return writeNumPromise(numberFactPath, response.data, 'utf-8');
-        })
-        .catch(err => {
-          return err;
-        });
+const multiplePromisesHelpers = async (numberFilePath, numberFactPath) => {
+  let num = await readFilePromise(numberFilePath, 'utf-8');
+  let res = await apiCall(num);
+  await writeNumPromise(numberFactPath, res.data, 'utf-8');
+  return;
 };
-// let write = multiplePromises(numberFile, numberFact);
-// console.log(write)
+let write = multiplePromises(numberFile, numberFact);
+console.log(write)
 
 /*
 After finishing making promise chains, go back and refactor with async/await
