@@ -1,4 +1,4 @@
-# promises-practice
+# Promises Practice
 Practice your asynchronous Nodejs code with Promises
 
 # Description
