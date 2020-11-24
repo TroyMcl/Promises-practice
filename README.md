@@ -1,6 +1,16 @@
 # promises-practice
 Practice your asynchronous Nodejs code with Promises
 
-An outline repo that gives you a place to solidify your concept and syntax understanding of promises. Designed for using Promises and Promise chains first. After you can refactor to use the newer async/await syntax.
+# Description
 
-When doing Promise chaining don't nest your promises. Keep everything on the same 'level'. Each function is called inside a console.log. There will not be data returned in these console.logs, only promises if you write your code correctly. These are for helping you to see what has run, what is being returned and to hopefully drive home the point that you have to use promises in async code (your code must 'wait' for the promise to resolve before moving on). To see the data add console.logs in your promises and look at the files you are reading from and writing to.
+An outline repo that gives you a place to solidify your concept understanding and syntax of nodes asynchronous promises.
+
+# Directions
+Fork the repo and run npm install. Follow the directions provided above each function to step through the repo.
+
+Start working through the with promise chains to begin with. When promise chaining, don’t nest your promises, keep everything on the same ‘level’. When you have finished with promise chains, you can refactor to the newer async/await syntax. There are solution branches for both promise chains and async await.
+
+# Notes
+
+Each function invocation can be seen in a console.log. This will log a promise to your terminal, not any data. This is because we are running asynchronous code in a synchronous node environments. If you want to see your data you will need to add console.logs inside your promises. Pay attention to what is console.logged, and the order of our console.logs, as it is an important part of understanding how to write your code in an actual server.
+
